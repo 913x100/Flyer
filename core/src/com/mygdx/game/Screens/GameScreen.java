@@ -2,6 +2,7 @@ package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.mygdx.game.GameOrganize.InputHandler;
 import com.mygdx.game.GameWorld.GameRenderer;
 import com.mygdx.game.GameWorld.GameWorld;
 
@@ -19,7 +20,7 @@ public class GameScreen implements Screen {
         int midPointY = (int)(gameHeight / 2.0F);
         this.world = new GameWorld(midPointY);
         this.renderer = new GameRenderer(this.world, (int)gameHeight, midPointY);
-        //Gdx.input.setInputProcessor(new InputHandler(this.world.getBird()));
+        Gdx.input.setInputProcessor(new InputHandler(this.world.getPlayer()));
     }
 
     public void render(float delta) {

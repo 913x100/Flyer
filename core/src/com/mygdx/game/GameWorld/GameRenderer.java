@@ -30,7 +30,7 @@ public class GameRenderer {
     }
 
     public void render(float runTime) {
-        Player bird = this.myWorld.getPlayer();
+        Player player = this.myWorld.getPlayer();
         Gdx.gl.glClearColor(0.0F, 0.0F, 0.0F, 1.0F);
         Gdx.gl.glClear(16384);
         this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -43,9 +43,9 @@ public class GameRenderer {
         this.shapeRenderer.end();
         this.batcher.begin();
         this.batcher.disableBlending();
-        this.batcher.draw(AssetLoader.bg, 0.0F, (float)(this.midPointY + 23), 136.0F, 43.0F);
         this.batcher.enableBlending();
-        this.batcher.draw((Texture) AssetLoader.birdAnimation.getKeyFrame(runTime), bird.getX(), bird.getY(), bird.getWidth(), bird.getHeight());
+        this.batcher.draw((Texture) AssetLoader.playerAnimation.getKeyFrame(runTime), player.getX(),
+                player.getY(),player.getWidth(), player.getHeight());
         this.batcher.end();
     }
 }
