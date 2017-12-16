@@ -1,6 +1,7 @@
 package com.mygdx.game.GameOrganize;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.mygdx.game.GameObjects.Player;
 

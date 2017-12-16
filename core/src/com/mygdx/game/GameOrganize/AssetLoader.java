@@ -11,9 +11,9 @@ public class AssetLoader {
     public static TextureRegion bg;
     public static TextureRegion grass;
     public static Animation playerAnimation;
-    public static Texture playerMid;
-    public static Texture playerDown;
-    public static Texture playerUp;
+    public static TextureRegion playerMid;
+    public static TextureRegion playerDown;
+    public static TextureRegion playerUp;
     public static TextureRegion skullUp;
     public static TextureRegion skullDown;
     public static TextureRegion bar;
@@ -22,11 +22,21 @@ public class AssetLoader {
     }
 
     public static void load() {
-        playerDown = new Texture(Gdx.files.internal("images/redbird-downflap.png"));
-        playerMid = new Texture(Gdx.files.internal("images/redbird-midflap.png"));
-        playerUp = new Texture(Gdx.files.internal("images/redbird-upflap.png"));
-        Texture[] birds = new Texture[]{playerDown, playerMid, playerUp};
-        playerAnimation = new Animation(0.06F, birds);
+        texture = new Texture(Gdx.files.internal("data/texture.png"));
+        texture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+        // Background
+        grass = new TextureRegion(texture, 0, 43, 143, 11);
+        grass.flip(false, true);
+
+        // Player
+        playerDown = new TextureRegion(texture, 136, 0, 17, 12);
+        playerDown.flip(true, true);
+        playerMid = new TextureRegion(texture, 153, 0, 17, 12);
+        playerMid.flip(true, true);
+        playerUp = new TextureRegion(texture, 170, 0, 17, 12);
+        playerUp.flip(true, true);
+        TextureRegion[] players = new TextureRegion[]{ playerDown,  playerMid,  playerUp};
+        playerAnimation = new Animation(0.06F, players);
         playerAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
     }
 
