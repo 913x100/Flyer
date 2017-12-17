@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
     public static Texture texture;
-    public static TextureRegion grass;
+    public static TextureRegion grass, bg;
     public static Animation playerAnimation;
     public static TextureRegion playerMid, playerDown, playerUp;
     public static TextureRegion skullRight, skullLeft;
@@ -19,6 +19,7 @@ public class AssetLoader {
     public static BitmapFont font, shadow, problem;
 
     public static void load() {
+
         texture = new Texture(Gdx.files.internal("data/texture.png"));
         texture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 

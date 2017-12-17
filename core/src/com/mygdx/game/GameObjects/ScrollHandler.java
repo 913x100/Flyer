@@ -6,12 +6,14 @@ import com.mygdx.game.GameWorld.GameWorld;
 public class ScrollHandler {
     private GameWorld gameWorld;
     private Pipe pipe1, pipe2, pipe3;
+    private Grass frontGrass, backGrass;
     public static final int SCROLL_SPEED = -49;
     public static final int PIPE_GAP = 65;
 
 
     public ScrollHandler(GameWorld gameWorld, float yPos) {
         this.gameWorld = gameWorld;
+        frontGrass = new Grass(0, yPos - 1, 143, 11, SCROLL_SPEED);
         pipe1 = new Pipe(130, 60, 18, 35, SCROLL_SPEED);
         pipe2 = new Pipe(pipe1.getTailX() + PIPE_GAP, 50, 18, 35, SCROLL_SPEED);
         pipe3 = new Pipe(pipe2.getTailX() + PIPE_GAP, 70, 18, 35, SCROLL_SPEED);
@@ -59,6 +61,12 @@ public class ScrollHandler {
 
         }
         return (pipe1.collides(player) || pipe2.collides(player) || pipe3.collides(player));
+    }
+
+    public void onRestart() {
+        pipe1.onRestart(210, SCROLL_SPEED);
+        pipe2.onRestart(pipe1.getTailX() + PIPE_GAP, SCROLL_SPEED);
+        pipe3.onRestart(pipe2.getTailX() + PIPE_GAP, SCROLL_SPEED);
     }
 
     private void addScore(int increment) {

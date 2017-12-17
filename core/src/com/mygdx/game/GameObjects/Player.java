@@ -11,6 +11,7 @@ public class Player {
     private float rotation;
     private int width, height;
     private Circle hitBox;
+    private boolean isAlive;
 
     public Player(float x, float y, int width, int height) {
         this.width = width;
@@ -19,6 +20,7 @@ public class Player {
         velocity = new Vector2(0.0F, 0.0F);
         acceleration = new Vector2(0.0F, 460.0F);
         hitBox = new Circle();
+        isAlive = true;
     }
 
     public void update(float delta) {
@@ -26,48 +28,72 @@ public class Player {
         if (velocity.y > 180.0F) {
             velocity.y = 180.0F;
         }
+        if(position.y < -10) {
+            position.y = -10;
+            velocity.y = 0;
+        }
+
         position.add(this.velocity.cpy().scl(delta));
 
-        hitBox.set(position.x + 9, position.y + 6, 6.0F);
-
-
+        hitBox.set(position.x + 9 , position.y + 6 , 6.0F);
 
     }
 
     public void onTap() {
-        velocity.y = -140.0F;
+        if(isAlive) {
+            velocity.y = -140.0F;
+        }
     }
 
     public boolean isFalling() {
-        return this.velocity.y > 100;
+        return velocity.y > 100;
     }
 
     public boolean shouldntFlap() {
-        return this.velocity.y > 70;
+        return velocity.y > 70;
+    }
+
+    public void die() {
+        isAlive = false;
+        velocity.y = 0;
+    }
+
+    public void declerate() {
+        acceleration.y = 0;
+    }
+
+    public void onRestart(int y) {
+        rotation = 0;
+        position.y = y;
+        velocity.x = 0;
+        velocity.y = 0;
+        acceleration.x = 0;
+        acceleration.y = 460;
+        isAlive = true;
     }
 
     public float getX() {
-        return this.position.x;
+        return position.x;
     }
 
     public Circle getHitBox() {
         return hitBox;
     }
 
+    public boolean isAlive() {
+        return isAlive;
+    }
+
     public float getY() {
-        return this.position.y;
+        return position.y;
     }
 
     public float getWidth() {
-        return (float)this.width;
+        return (float)width;
     }
 
     public float getHeight() {
-        return (float)this.height;
-    }
-
-    public float getRotation() {
-        return this.rotation;
+        return (float)height;
     }
 
 }

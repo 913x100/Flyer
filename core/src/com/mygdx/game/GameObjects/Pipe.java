@@ -10,13 +10,15 @@ import java.util.Random;
 public class Pipe extends Scrollable {
     private SpriteBatch batcher;
     private Random r;
-    private Rectangle pipeUp, pipeMid, pipeDown;
+    private Rectangle pipeUp, pipeMid, pipeDown, barUp, barMid1, barMid2, barDown;
     private boolean isScored = false;
     private boolean isAnswerUp = false;
     private int opd1, opd2;
     private String problem, operator, ansUp, ansDown;
 
     public static final int PIPE_GAP = 40;
+    public static final int BAR_WIDTH = 24;
+    public static final int BAR_HEIGHT = 5;
 
     public Pipe(float x, float y, int width, int height, float scrollSpeed) {
         super(x, y, width, height, scrollSpeed);
@@ -25,6 +27,11 @@ public class Pipe extends Scrollable {
         pipeUp = new Rectangle();
         pipeMid = new Rectangle();
         pipeDown = new Rectangle();
+        barUp = new Rectangle();
+        barMid1 = new Rectangle();
+        barMid2 = new Rectangle();
+        barDown = new Rectangle();
+
         problem = setProblem();
         batcher = new SpriteBatch();
 
@@ -44,16 +51,19 @@ public class Pipe extends Scrollable {
     public void update(float delta) {
         super.update(delta);
 
-        //pipeUp.set(position.x, 0, width, position.x - 40);
         pipeMid.set(position.x, position.y, width, height);
-        //pipeDown.set(position.x, position.y + height + PIPE_GAP, width, 50);
         if(isAnswerUp) {
-            pipeUp.set(position.x, 0, width, position.x - 40);
+            pipeUp.set(position.x, 0, width, position.y - 40);
             pipeDown.set(position.x, position.y + height, width, 50);
         } else if(!isAnswerUp) {
             pipeUp.set(position.x, 0, width, position.y);
             pipeDown.set(position.x, position.y + height + PIPE_GAP, width, 50);
         }
+
+        barUp.set(position.x - (BAR_WIDTH - width) / 2,  position.y - 40 - BAR_HEIGHT, BAR_WIDTH, BAR_HEIGHT);
+        barMid1.set(position.x - (BAR_WIDTH - width) / 2, position.y, BAR_WIDTH, BAR_HEIGHT);
+        barMid2.set(position.x - (BAR_WIDTH - width) / 2, position.y + height - BAR_HEIGHT, BAR_WIDTH, BAR_HEIGHT);
+        barDown.set(position.x - (BAR_WIDTH - width) / 2, position.y + height + PIPE_GAP - BAR_HEIGHT, BAR_WIDTH, BAR_HEIGHT);
     }
 
     @Override
@@ -63,6 +73,11 @@ public class Pipe extends Scrollable {
         this.height = 35;
         this.position.y = this.r.nextInt(30) + 50;
         isScored = false;
+    }
+
+    public void onRestart(float x, float scrollSpeed) {
+        velocity.x = scrollSpeed;
+        reset(x);
     }
 
     public boolean collides(Player player) {
@@ -133,6 +148,22 @@ public class Pipe extends Scrollable {
 
     public Rectangle getPipeDown() {
         return pipeDown;
+    }
+
+    public Rectangle getBarUp() {
+        return barUp;
+    }
+
+    public Rectangle getBarMid1() {
+        return barMid1;
+    }
+
+    public Rectangle getBarMid2() {
+        return barMid2;
+    }
+
+    public Rectangle getBarDown() {
+        return barDown;
     }
 
     public String getProblem() {
