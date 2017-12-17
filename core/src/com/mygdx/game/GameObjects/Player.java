@@ -22,7 +22,6 @@ public class Player {
         this.velocity = new Vector2(0.0F, 0.0F);
         this.acceleration = new Vector2(0.0F, 460.0F);
         this.playerSide = true;
-        this.velocity.x = 20.0F;
         this.playerUp = AssetLoader.playerUp;
         this.playerMid = AssetLoader.playerMid;
         this.playerDown = AssetLoader.playerDown;
@@ -31,49 +30,16 @@ public class Player {
     public void update(float delta) {
         this.velocity.add(this.acceleration.cpy().scl(delta));
 
-        if(getX() > 120) {
-            this.velocity.x = -50.0F;
-            this.velocity.y = 10.0F;
-            this.playerSide = !this.playerSide;
-            setSide();
-        }
-        if(getX() < 0) {
-            this.velocity.x = 50.0F;
-            this.velocity.y = 10.0F;
-            this.playerSide = !this.playerSide;
-            setSide();
-        }
-
         if (this.velocity.y > 120.0F) {
             this.velocity.y = 120.0F;
         }
 
         this.position.add(this.velocity.cpy().scl(delta));
 
-        // Rotate ccw
-        /*if(this.velocity.y < 0) {
-            rotation -= 600*delta;
-            if(rotation < - 20) {
-                rotation = -20;
-            }
-        }
-
-        // Rotate cw
-        if(isFalling()) {
-            rotation += 480*delta;
-            if(rotation > 90) {
-                rotation = 90;
-            }
-        }*/
     }
 
     public void onTap() {
         this.velocity.y = -140.0F;
-        if(getSide()) {
-            this.velocity.x = -50.0F;
-        } else {
-            this.velocity.x = 50.0F;
-        }
     }
 
     public void setSide() {
