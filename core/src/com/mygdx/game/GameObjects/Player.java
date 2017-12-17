@@ -2,50 +2,40 @@ package com.mygdx.game.GameObjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.GameOrganize.AssetLoader;
 
 public class Player {
-    private Vector2 position;
-    private Vector2 velocity;
-    private Vector2 acceleration;
+    private Vector2 position, velocity, acceleration;
     private float rotation;
-    private int width;
-    private int height;
-    private boolean playerSide;
-    private TextureRegion playerUp, playerMid, playerDown;
+    private int width, height;
+    private Circle hitBox;
 
     public Player(float x, float y, int width, int height) {
         this.width = width;
         this.height = height;
-        this.position = new Vector2(x, y);
-        this.velocity = new Vector2(0.0F, 0.0F);
-        this.acceleration = new Vector2(0.0F, 460.0F);
-        this.playerSide = true;
-        this.playerUp = AssetLoader.playerUp;
-        this.playerMid = AssetLoader.playerMid;
-        this.playerDown = AssetLoader.playerDown;
+        position = new Vector2(x, y);
+        velocity = new Vector2(0.0F, 0.0F);
+        acceleration = new Vector2(0.0F, 460.0F);
+        hitBox = new Circle();
     }
 
     public void update(float delta) {
-        this.velocity.add(this.acceleration.cpy().scl(delta));
-
-        if (this.velocity.y > 120.0F) {
-            this.velocity.y = 120.0F;
+        velocity.add(this.acceleration.cpy().scl(delta));
+        if (velocity.y > 180.0F) {
+            velocity.y = 180.0F;
         }
+        position.add(this.velocity.cpy().scl(delta));
 
-        this.position.add(this.velocity.cpy().scl(delta));
+        hitBox.set(position.x + 9, position.y + 6, 6.0F);
+
+
 
     }
 
     public void onTap() {
-        this.velocity.y = -140.0F;
-    }
-
-    public void setSide() {
-        playerUp.flip(true,false);
-        playerMid.flip(true,false);
-        playerDown.flip(true,false);
+        velocity.y = -140.0F;
     }
 
     public boolean isFalling() {
@@ -56,12 +46,12 @@ public class Player {
         return this.velocity.y > 70;
     }
 
-    public boolean getSide() {
-        return this.playerSide;
-    }
-
     public float getX() {
         return this.position.x;
+    }
+
+    public Circle getHitBox() {
+        return hitBox;
     }
 
     public float getY() {

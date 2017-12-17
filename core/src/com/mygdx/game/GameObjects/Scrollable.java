@@ -10,7 +10,7 @@ public class Scrollable {
     protected int upPipeHeight;
     protected boolean isScrolledLeft;
 
-    public Scrollable(float x, float y, int width, int height, int upPipeHeight, float scrollSpeed) {
+    public Scrollable(float x, float y, int width, int height, float scrollSpeed) {
         position = new Vector2(x, y);
         velocity = new Vector2(scrollSpeed, 0);
         this.width = width;
@@ -30,6 +30,10 @@ public class Scrollable {
     public void reset(float newX) {
         position.x = newX;
         isScrolledLeft = false;
+    }
+
+    public void stop() {
+        velocity.x = 0.0F;
     }
 
     public boolean isScrolledLeft() {

@@ -1,14 +1,20 @@
 package com.mygdx.game.GameObjects;
 
+import com.mygdx.game.GameOrganize.AssetLoader;
+import com.mygdx.game.GameWorld.GameWorld;
+
 public class ScrollHandler {
+    private GameWorld gameWorld;
     private Pipe pipe1, pipe2, pipe3;
-    public static final int SCROLL_SPEED = -59;
+    public static final int SCROLL_SPEED = -49;
     public static final int PIPE_GAP = 65;
 
-    public ScrollHandler(float yPos) {
-        pipe1 = new Pipe(130, 60, 18, 35, 0, SCROLL_SPEED);
-        pipe2 = new Pipe(pipe1.getTailX() + PIPE_GAP, 50, 18, 35, 0,  SCROLL_SPEED);
-        pipe3 = new Pipe(pipe2.getTailX() + PIPE_GAP, 70, 18, 35, 0, SCROLL_SPEED);
+
+    public ScrollHandler(GameWorld gameWorld, float yPos) {
+        this.gameWorld = gameWorld;
+        pipe1 = new Pipe(130, 60, 18, 35, SCROLL_SPEED);
+        pipe2 = new Pipe(pipe1.getTailX() + PIPE_GAP, 50, 18, 35, SCROLL_SPEED);
+        pipe3 = new Pipe(pipe2.getTailX() + PIPE_GAP, 70, 18, 35, SCROLL_SPEED);
     }
 
     public void update(float delta) {
@@ -22,6 +28,41 @@ public class ScrollHandler {
             pipe3.reset(pipe2.getTailX() + PIPE_GAP);
         }
 
+    }
+
+    public void stop() {
+        pipe1.stop();
+        pipe2.stop();
+        pipe3.stop();
+    }
+
+    public boolean collides(Player player) {
+        if (!pipe1.isScored()
+                && pipe1.getX() + (pipe1.getWidth() / 2) < player.getX() + player.getWidth()) {
+
+            addScore(1);
+            pipe1.setScored(true);
+            AssetLoader.coin.play();
+        } else if (!pipe2.isScored()
+                && pipe2.getX() + (pipe2.getWidth() / 2) < player.getX()
+                + player.getWidth()) {
+            addScore(1);
+            pipe2.setScored(true);
+            AssetLoader.coin.play();
+
+        } else if (!pipe3.isScored()
+                && pipe3.getX() + (pipe3.getWidth() / 2) < player.getX()
+                + player.getWidth()) {
+            addScore(1);
+            pipe3.setScored(true);
+            AssetLoader.coin.play();
+
+        }
+        return (pipe1.collides(player) || pipe2.collides(player) || pipe3.collides(player));
+    }
+
+    private void addScore(int increment) {
+        gameWorld.addScore(increment);
     }
 
     public Pipe getPipe1() {
