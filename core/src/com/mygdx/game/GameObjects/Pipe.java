@@ -55,8 +55,8 @@ public class Pipe extends Scrollable {
         if(isAnswerUp) {
             pipeUp.set(position.x, 0, width, position.y - 40);
             pipeDown.set(position.x, position.y + height, width, 50);
-        } else if(!isAnswerUp) {
-            pipeUp.set(position.x, 0, width, position.y);
+        } else {
+            pipeUp.set(position.x, 0, width, position.y + height);
             pipeDown.set(position.x, position.y + height + PIPE_GAP, width, 50);
         }
 

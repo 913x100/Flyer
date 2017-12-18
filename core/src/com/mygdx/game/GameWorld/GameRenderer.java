@@ -117,7 +117,6 @@ public class GameRenderer {
         drawPipes();
         drawGrass();
 
-
         batcher.begin();
         batcher.disableBlending();
 
