@@ -1,28 +1,25 @@
 package com.mygdx.game.GameOrganize;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.mygdx.game.GameObjects.Player;
 import com.mygdx.game.GameWorld.GameWorld;
 
-public class InputHandler implements InputProcessor {
+public class Controller implements InputProcessor {
     private Player player;
     private GameWorld world;
 
-    public InputHandler(GameWorld world) {
+    public Controller(GameWorld world) {
         this.world = world;
         player = world.getPlayer();
     }
 
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-        if(world.isReady()) {
+        if (world.isReady()) {
             world.start();
         }
         player.onTap();
-        if(world.isGameOver()) {
+        if (world.isGameOver()) {
             world.restart();
         }
         return true;

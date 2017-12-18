@@ -31,7 +31,6 @@ public class GameRenderer {
     private Player player;
     private ScrollHandler scroller;
     private Pipe pipe1, pipe2, pipe3;
-    private Grass frontGrass;
 
     // Game Asset
     private TextureRegion playerUp, playerMid, playerDown;
@@ -53,31 +52,8 @@ public class GameRenderer {
     }
 
     private void drawPipes() {
-        /*batcher.draw(bar, pipe1.getX(), 0,
-                (float)pipe1.getWidth(), (float)(pipe1.getY() - 40));
-        batcher.draw(bar, pipe1.getX(), pipe1.getY(),
-                (float)pipe1.getWidth(), (float)pipe1.getHeight());
-        batcher.draw(bar, pipe1.getX(), (float)(pipe1.getY() + pipe1.getHeight() + 40),
-                (float)pipe1.getWidth(), 50);
-
-        batcher.draw(bar, pipe2.getX(), 0,
-                (float)pipe2.getWidth(), (float)(pipe2.getY() - 40));
-        batcher.draw(bar, pipe2.getX(), pipe2.getY(),
-                (float)pipe2.getWidth(), (float)pipe2.getHeight());
-        batcher.draw(bar, pipe2.getX(), (float)(pipe2.getY() + pipe2.getHeight() + 40),
-                (float)pipe2.getWidth(), 50);
-
-        batcher.draw(bar, pipe3.getX(), 0,
-                (float)pipe3.getWidth(), (float)(pipe3.getY() - 40));
-        batcher.draw(bar, pipe3.getX(), pipe3.getY(),
-                (float)pipe3.getWidth(), (float)pipe3.getHeight());
-        batcher.draw(bar, pipe3.getX(), (float)(pipe3.getY() + pipe3.getHeight() + 40),
-                (float)pipe3.getWidth(), 50);*/
-
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(111 / 255.0f, 186 / 255.0f, 45 / 255.0f, 1);
-        //shapeRenderer.circle(player.getHitBox().x,
-        //        player.getHitBox().y, player.getHitBox().radius);
         // Pipe 1
         shapeRenderer.rect(pipe1.getX(), 0, (float)pipe1.getWidth(), (float)(pipe1.getY() - 40));
         shapeRenderer.rect(pipe1.getX(), pipe1.getY(), (float)pipe1.getWidth(), (float)pipe1.getHeight());
@@ -136,9 +112,6 @@ public class GameRenderer {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
-
-
         // Draw pipes
         drawBackground();
         drawPipes();
@@ -157,10 +130,6 @@ public class GameRenderer {
             batcher.draw((TextureRegion) playerAnimation.getKeyFrame(runTime), player.getX(),
                     player.getY(), player.getWidth(), player.getHeight());
         }
-
-
-        //AssetLoader.problem.draw(batcher, "" + pipe2.getProblem(), pipe2.getX(), 150);
-        //AssetLoader.problem.draw(batcher, "" + pipe3.getProblem(), pipe3.getX(), 150);
 
         if(world.isReady()) {
             //AssetLoader.font.draw(batcher, "Touch me", (136 / 2) - (42 - 1), 75);
@@ -194,17 +163,12 @@ public class GameRenderer {
         pipe1 = scroller.getPipe1();
         pipe2 = scroller.getPipe2();
         pipe3 = scroller.getPipe3();
-        frontGrass = scroller.getFrontGrass();
     }
 
     private void initAssets() {
-        //bg = AssetLoader.bg;
         playerAnimation = AssetLoader.playerAnimation;
         playerMid = AssetLoader.playerMid;
         playerDown = AssetLoader.playerDown;
         playerUp = AssetLoader.playerUp;
-        //skullRight = AssetLoader.skullRight;
-        //skullLeft = AssetLoader.skullLeft;
-        //bar = AssetLoader.bar;
     }
 }

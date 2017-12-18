@@ -45,10 +45,6 @@ public class Player {
         }
     }
 
-    public boolean isFalling() {
-        return velocity.y > 100;
-    }
-
     public boolean shouldntFlap() {
         return velocity.y > 70;
     }
